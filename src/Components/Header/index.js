@@ -10,6 +10,8 @@ export default function HeaderFixo() {
       <li>
   
           <a href="/">Sair</a>
+          <a href="/">Up</a>
+          <a href="/">Down</a>
     
       </li>
     </div>
