@@ -6,13 +6,9 @@ export default function HeaderFixo() {
   return (
     <div className="header">
       <h1> bom dia</h1>
-      <p> default</p>
+      <p> @</p>
       <li>
-  
-          <a href="/">Sair</a>
-          <a href="/">Up</a>
-          <a href="/">Down</a>
-    
+        <a href="/">Sair</a>
       </li>
     </div>
   );
