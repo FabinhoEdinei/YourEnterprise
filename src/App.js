@@ -8,9 +8,9 @@ export default function App() {
     <div className="App">
       <HeaderFixo></HeaderFixo>
       <a href="./src/pages/home">proxima page</a>
-      
-      <EstoquePlate></EstoquePlate>
-      <h2>ola</h2>
+      <EstoquePlate>
+        <h2>ola</h2>
+      </EstoquePlate>
     </div>
   );
 }

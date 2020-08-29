@@ -3,18 +3,91 @@
   border: 8px double rgba(44, 167, 54, 0.788);
   border-radius: 30px;
   box-shadow: 20px 20px 20px #000;
-  width: 100%;
+  width: 200px;
   height: 200px;
   color: white;
   position: relative;
-  top: 30px;
-  left: 1px;
-  right:0px;
-  transform: rotateY(17deg);
+  top: 25px;
+  left: 70px;
+  transform: rotateY(1deg);
+  padding: 6px;
 }
-.header{
-width: 98%;
-border-top-right-radius: 20px;
-border-top-left-radius: 20px;
+p {
+  align-items: center;
+}
+.basePilhaTres {
+  background: rgb(79, 6, 248);
+  width: 135px;
+  height: 15px;
+  border-radius: 3px;
+  box-shadow: -52px -18px 0px rgba(8, 11, 219, 0.473);
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  border-top-style: groove;
+  border-bottom-style: groove;
+  border-left-width: 3px;
+  border-left-style: double;
+  font: small-caption;
+  position: absolute;
 
+  left: 61px;
+  top: 154px;
+  z-index: -1;
+
+  transform: skewX(deg);
+}
+.basePilhaDois {
+  background: rgb(8, 11, 219, 0.473);
+  display: flex;
+  flex-grow: 6;
+  width: 135px;
+  height: 15px;
+  border-radius: 3px;
+
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+
+  border-bottom-style: groove;
+  border-left-width: 3px;
+  border-left-style: double;
+  position: absolute;
+  left: 33px;
+  top: 151px;
+  z-index: -1;
+
+  transform: skewX(70deg);
+}
+.basePilhaUm {
+  background: rgb(79, 6, 248);
+
+  width: 135px;
+  height: 15px;
+  border-radius: 3px;
+
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  border-top-style: groove;
+  border-bottom-style: groove;
+  border-left-width: 3px;
+  border-left-style: double;
+  position: absolute;
+  left: 35px;
+  top: 131px;
+  z-index: -2;
+
+  transform: skewX(70deg);
+}
+.topoPilha {
+  align-items: center;
+  background: url(./Image/arrow-circle-right-solid.svg) rgb(243, 187, 187);
+  background-size: cover;
+  color: rgb(29, 102, 161);
+  font: small-caption;
+  width: 90px;
+  height: 120px;
+  border-width: 10px;
+  box-shadow: 5px 7px 20px rgb(13, 167, 159);
+  border-radius: 8px;
+  transform: rotate(-8deg);
+  transform: translateX(60px);
 }

@@ -1,16 +1,17 @@
 import React from "react";
 import "./styles.css";
-
+import capaImage from "./Image/arrow-circle-right-solid.svg";
 export default function EstoquePlate() {
   return (
     <div className="basePlate">
-<div className="header">header</div>
       Inicio
-      <p>
-        Hola mundo, e agora vou escrever aqui ate resumir tudo que da pra por em
-        200 pixels, e sem frescura nenhuma,...continua.{" "}
+      <p id="" className="topoPilha">
+        <img src={capaImage} alt="seta" />
+        for you !
       </p>
-      <p>So finalizando que ta ficando friu na minhas mãos </p>
+      <p className="basePilhaUm">Edinei</p>
+      <p className="basePilhaDois">Ed</p>
+      <p className="basePilhaTres">For You</p>
     </div>
   );
 }

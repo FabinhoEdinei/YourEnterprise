@@ -14,21 +14,20 @@
   color: black;
 }
 .header a {
-
   padding: 6px;
   border-radius: 2px;
   text-decoration: none;
   border: outset 4px #10b6a0;
   border-radius: 3px;
-  background:#d9f0d0;
+  background: #d9f0d0;
 }
 .header a:hover {
   display: 50px;
   background: #0fa760;
-  
-  border: double 3px #000;
+
+  border: double 5px #000;
 
   border-radius: 5px;
-  
+
   color: rgb(201, 25, 25);
- }
+}
