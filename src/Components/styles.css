@@ -87,7 +87,15 @@ p {
   height: 120px;
   border-width: 10px;
   box-shadow: 5px 7px 20px rgb(13, 167, 159);
-  border-radius: 8px;
+  border-radius: 4px;
   transform: rotate(-8deg);
   transform: translateX(60px);
+}
+button{
+  color:rgb(18, 48, 148);
+border: double 3px #000;
+border-radius: 13px;
+background: #b11212;
+font-size:  12px;
+background-image: -moz-repeating-radial-gradient(rgb(139, 54, 54));
 }
