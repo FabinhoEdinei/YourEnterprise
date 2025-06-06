@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WORKOUT PROTOCOL - FÁBIO</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #fff;
+            font-family: 'Exo 2', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #00f5ff, #0080ff, #8000ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(0, 245, 255, 0.5); }
+            to { text-shadow: 0 0 40px rgba(0, 245, 255, 0.8), 0 0 60px rgba(0, 128, 255, 0.3); }
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #00f5ff;
+            font-weight: 300;
+        }
+        
+        .day-container {
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            padding: 25px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .day-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 245, 255, 0.2);
+            border-color: rgba(0, 245, 255, 0.6);
+        }
+        
+        .day-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+        
+        .day-icon {
+            font-size: 2rem;
+            background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .day-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00f5ff;
+        }
+        
+        .day-subtitle {
+            color: #a0a0a0;
+            font-size: 1rem;
+        }
+        
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .exercise-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            border-left: 4px solid #00f5ff;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .exercise-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .exercise-card:hover::before {
+            left: 100%;
+        }
+        
+        .exercise-card:hover {
+            transform: scale(1.02);
+            border-left-color: #ff006e;
+            box-shadow: 0 10px 20px rgba(0, 245, 255, 0.1);
+        }
+        
+        .exercise-name {
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        
+        .exercise-stats {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .stat {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .stat-label {
+            color: #a0a0a0;
+            font-size: 0.8rem;
+        }
+        
+        .stat-value {
+            color: #00f5ff;
+            font-weight: 600;
+        }
+        
+        .rest-day {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(128, 0, 255, 0.1), rgba(255, 0, 110, 0.1));
+            border-radius: 20px;
+            border: 1px solid rgba(128, 0, 255, 0.3);
+        }
+        
+        .rest-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .notes {
+            background: linear-gradient(135deg, rgba(0, 255, 127, 0.1), rgba(0, 245, 255, 0.1));
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 40px;
+            border: 1px solid rgba(0, 255, 127, 0.3);
+        }
+        
+        .notes-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            color: #00ff7f;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .note-item {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        
+        .note-item::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #00ff7f;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00f5ff, #8000ff);
+            width: 75%;
+            border-radius: 2px;
+            animation: progressGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes progressGlow {
+            from { box-shadow: 0 0 5px rgba(0, 245, 255, 0.5); }
+            to { box-shadow: 0 0 15px rgba(0, 245, 255, 0.8); }
+        }
+        
+        .week-schedule {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .week-day {
+            text-align: center;
+            padding: 15px 10px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .active-day {
+            background: linear-gradient(45deg, #00f5ff, #8000ff);
+            color: #000;
+            font-weight: 600;
+        }
+        
+        .rest-day-mini {
+            background: rgba(128, 0, 255, 0.2);
+            border: 1px solid rgba(128, 0, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">WORKOUT PROTOCOL</h1>
+            <p class="subtitle">SISTEMA DE TREINAMENTO AVANÇADO - FÁBIO</p>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+        
+        <div class="week-schedule">
+            <div class="week-day active-day">SEG<br>Pernas</div>
+            <div class="week-day active-day">TER<br>Peito</div>
+            <div class="week-day active-day">QUA<br>Costas</div>
+            <div class="week-day rest-day-mini">QUI<br>Rest</div>
+            <div class="week-day active-day">SEX<br>Ombro</div>
+            <div class="week-day rest-day-mini">SÁB<br>Rest</div>
+            <div class="week-day rest-day-mini">DOM<br>Rest</div>
+        </div>
+        
+        <div class="day-container">
+            <div class="day-header">
+                <div class="day-icon">🦵</div>
+                <div>
+                    <h2 class="day-title">SEGUNDA-FEIRA</h2>
+                    <p class="day-subtitle">Pernas & Glúteos - Power Session</p>
+                </div>
+            </div>
+            <div class="exercise-grid">
+                <div class="exercise-card">
+                    <div class="exercise-name">Agachamento Livre</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">4</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">8-10</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Leg Press 45°</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">4</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">12-15</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Cadeira Extensora</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">3</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">12-15</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Stiff (Deadlift Romeno)</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">4</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">10-12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Afundo Alternado</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">3</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">12 cada</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Abdutora</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">3</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">15-20</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Elevação Pélvica</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">4</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">15-20</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Panturrilha (Sentado + Em Pé)</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">4+4</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">Falha</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="day-container">
+            <div class="day-header">
+                <div class="day-icon">💪</div>
+                <div>
+                    <h2 class="day-title">TERÇA-FEIRA</h2>
+                    <p class="day-subtitle">Peitoral & Tríceps - Upper Push</p>
+                </div>
+            </div>
+            <div class="exercise-grid">
+                <div class="exercise-card">
+                    <div class="exercise-name">Supino Máquina</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">4</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">8-10</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Dumbbell Press Inclinado</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">3</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">10-12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Voador (Peck Deck)</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">4</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">12-15</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Crossover Médio</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">3</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">12-15</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Crossover Baixo (Drop Set)</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">3</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">Falha</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Tríceps Pulley Corda</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">4</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">10-12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Tríceps Testa Polia</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">3</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">12-15</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Tríceps Francês Unilateral</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">3</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">10 cada</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="day-container">
+            <div class="day-header">
+                <div class="day-icon">🏋️</div>
+                <div>
+                    <h2 class="day-title">QUARTA-FEIRA</h2>
+                    <p class="day-subtitle">Costas & Bíceps + Cardio - Pull Power</p>
+                </div>
+            </div>
+            <div class="exercise-grid">
+                <div class="exercise-card">
+                    <div class="exercise-name">Puxada Fechada</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">4</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">8-10</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Puxada Aberta Máquina</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">4</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">10-12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Remada Baixa Aberta</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">4</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">10-12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Remada Triângulo</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">3</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">12-15</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Pulldown</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">3</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">12-15</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Serrote Unilateral</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">3</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">10 cada</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Rosca Direta Barra W</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">4</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">10-12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Rosca Martelo</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">3</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">12-15</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Rosca 45° (Scott)</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">3</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">10-12</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">🏃‍♂️ Corrida Cardio</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Distância</span>
+                            <span class="stat-value">5 km</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Ritmo</span>
+                            <span class="stat-value">Moderado</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rest-day">
+            <div class="rest-icon">😴</div>
+            <h2 class="day-title">QUINTA-FEIRA</h2>
+            <p class="day-subtitle">Dia de Recuperação Ativa</p>
+            <p style="margin-top: 15px; color: #a0a0a0;">Mobilidade, alongamento ou caminhada leve</p>
+        </div>
+        
+        <div class="day-container">
+            <div class="day-header">
+                <div class="day-icon">🔥</div>
+                <div>
+                    <h2 class="day-title">SEXTA-FEIRA</h2>
+                    <p class="day-subtitle">Ombros & Core + Cardio - Finisher</p>
+                </div>
+            </div>
+            <div class="exercise-grid">
+                <div class="exercise-card">
+                    <div class="exercise-name">Desenvolvimento Máquina</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">4</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">8-10</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Elevação Lateral Halter</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">4</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">12-15</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Elevação Lateral Cabo</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">3</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">12-15</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Elevação Lateral Máquina</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">3</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Reps</span>
+                            <span class="stat-value">15-20</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <div class="exercise-name">Crucifixo Inverso</div>
+                    <div class="exercise-stats">
+                        <div class="stat">
+                            <span class="stat-label">Séries</span>
+                            <span class="stat-value">4</span>
+                        </div>
